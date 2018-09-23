@@ -1,6 +1,5 @@
 import pickle
 import os
-import PyPDF2
 
 from subprocess import call
 from .pre_processing import CorpusHandler, BatchProcessing
@@ -13,14 +12,18 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-MY_MODEL = 'logres.pkl'
-TFIDF = 'tfidf.pkl'
-MODEL_PATH = os.path.join('../../models/', MY_MODEL)
-TFIDF_PATH = os.path.join('../../models/', TFIDF)
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 PDF_TEMP = 'server-side.pdf'
 TEXT_TEMP = 'temp.txt'
+MY_MODEL = 'models/logres.pkl'
+TFIDF = 'models/tfidf.pkl'
 
+MODEL_TEMP = TEXT_TEMP
+MODEL_PATH = os.path.join(SITE_ROOT, MY_MODEL)
+TFIDF_PATH = os.path.join(SITE_ROOT, TFIDF)
 
+print(SITE_ROOT)
 class ClassifierView(APIView):
     """
     Return the classification of PDF file.
@@ -56,11 +59,11 @@ class ClassifierView(APIView):
         """
         call('pdftotext server-side.pdf temp.txt', shell=True)
 
-        return open('temp.txt', 'r').readlines()
+        return open(MODEL_TEMP, 'r').readlines()
 
     def _clean_temporary_files(self):
         os.remove(PDF_TEMP)
-        os.remove(TEXT_TEMP)
+        os.remove(MODEL_TEMP)
 
     def pre_process_text(self, corpus):
         pipe = [str.lower, 'clean_email', 'clean_site', 'clean_document',
@@ -76,7 +79,6 @@ class ClassifierView(APIView):
         Send to server the PDF file.
         """
 
-        """
         print("========This is debug: ", request.data['file'])  
         # Load model and tfidf
         tfidf = self._load_tfidf()
@@ -103,6 +105,6 @@ class ClassifierView(APIView):
         #self._clean_temporary_files()
 
         # TODO change this accuracy
-        """
         print(request.data)
-        return Response(status=200)
+    
+        return render(request, 'index.html', {'flag': 0})
