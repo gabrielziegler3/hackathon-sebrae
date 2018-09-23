@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{% static "css/ionicons.min.css" %}">
 
     <link rel="stylesheet" href="{% static "css/bootstrap-datepicker.css" %}">
-    <link rel="stylesheet" href="{% static "css/jquery.timepicker.css" %}>
+    <link rel="stylesheet" href="{% static "css/jquery.timepicker.css" %}">
 
     
     <link rel="stylesheet" href="{% static "css/flaticon.css" %}">
@@ -39,16 +39,16 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="won.html" class="nav-link">Won Cases</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="won.html" class="nav-link">Estatisticas Gerais</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">Sobre nós</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contato</a></li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- END nav -->
 
-    <section class="ftco-cover overlay" style= "{% static "background-image: url(images/bg_1.jpg);" %}" id="section-home" data-aos="fade"  data-stellar-background-ratio="0.5">
+    <section class="ftco-cover overlay" style="background-image: url("{% static 'images/bg_1.jpg' %}");" id="section-home" data-aos="fade"  data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center ftco-vh-100">
           <div class="col-md-8 text-center">
@@ -79,7 +79,7 @@
               </div>
               <div class="text">
                 <strong class="number" data-number="988771">0</strong>
-                <span>Qualified Lawyer in Brazil</span>
+                <span>Quantidade de advogados hoje no Brasil</span>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@
               </div>
               <div class="text">
                 <strong class="number" data-number="2452113">0</strong>
-                <span>Total access on the STF page for jurisprudence search</span>
+                <span>Total de acessos ao portal do STF no serviço de pesquisa de Jurisprudência no ano de 2018</span>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
               </div>
               <div class="text">
                 <strong class="number" data-number="403">0</strong>
-                <span>Days in average for an injunction to be judged</span>
+                <span>Dias em média para uma liminar a ser julgada</span>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@
               </div>
               <div class="text">
                 <strong class="number" data-number="200">5143</strong>
-                <span>Processes per day</span>
+                <span>Em media são submetidos todos os dias no STF</span>
               </div>
             </div>
           </div>
@@ -129,10 +129,9 @@
           <div class="text col-md-6">
             <div class="text-inner align-self-start" data-aos="fade-up">
               
-              <h3>Founder in 1856, Our Agency has over 175 lawyers</h3>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+              <h3>Ideia nasceu a partir da visão de um time que foca em transparência e agilidade no judiciário brasileiro</h3>
+              <p>Por muito tempo o judiciário brasileiro vem sendo um gargalo. Dentre os principais problemas temos a limitação na informação para a sociedade e o grande volume de processos. </p>
+              <p>Uma das principais causas para esse grande volume de processos nos tribunais superiores é a quantidade de recursos que são enviados para esses para que sejam analisadas as possibilidades de admissão ou não dos processos para serem julgados na próxima instncia. </p>
             </div>
           </div>
         </div>
@@ -209,7 +208,7 @@
     </div>
     
 
-    <div class="ftco-section testimony-img" id="ftco-testimony" style= "background-image: url('images/image_8.jpg');" data-aos="fade"  data-stellar-background-ratio="0.5">
+    <div class="ftco-section testimony-img" id="ftco-testimony" style= "background-image: url("{% static 'images/image_8.jpg' %}");" data-aos="fade"  data-stellar-background-ratio="0.5">
     <div class="container">
       <div class="row justify-content-center mb-5 pb-5">
         <div class="col-md-7 text-center heading" data-aos="fade-up">
@@ -226,7 +225,7 @@
               </blockquote>
               <div class="author d-flex mt-4">
                 <div class="image mr-3 align-self-center">
-                  <img src="images/person_1.jpg" alt="">
+                    <img src="{% static "images/person_1.jpg" %}" alt="">
                 </div>
                 <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
               </div>
@@ -239,7 +238,7 @@
               </blockquote>
               <div class="author d-flex mt-4">
                 <div class="image mr-3 align-self-center">
-                  <img src="images/person_2.jpg" alt="">
+                    <img src="{% static "images/person_2.jpg" %}" alt="">
                 </div>
                 <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
               </div>
@@ -370,7 +369,7 @@
         <div class="carousel owl-carousel ftco-owl">
           <div class="item">
             <div class="blog-entry" data-aos="fade-up">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_5.jpg');">
+                <a href="blog-single.html" class="block-20" style="background-image: url("{% static 'images/image_5.jpg' %}");">
               </a>
               <div class="text">
                 <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
@@ -384,7 +383,7 @@
           </div>
           <div class="item">
             <div class="blog-entry" data-aos="fade-up" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_6.jpg');">
+                <a href="blog-single.html" class="block-20" style="background-image: url("{% static 'images/image_6.jpg' %}");">
               </a>
               <div class="text">
                 <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
@@ -398,7 +397,7 @@
           </div>
           <div class="item">
             <div class="blog-entry" data-aos="fade-up" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_7.jpg');">
+                <a href="blog-single.html" class="block-20" style="background-image: url("{% static 'images/image_7.jpg' %}");">
               </a>
               <div class="text">
                 <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
