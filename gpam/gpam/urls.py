@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from .gpam_hackathon.views import PDFUploadView
+from .gpam_hackathon.views import ClassifierView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^pdf_upload/(?P<filename>[^/]+)$', PDFUploadView.as_view())    
+    url(r'^pdf_upload/(?P<filename>[^/]+)$', ClassifierView.as_view())    
 ]
