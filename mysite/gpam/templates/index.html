@@ -55,8 +55,13 @@
             <h1 class="ftco-heading mb-4" data-aos="fade-up" data-aos-delay="500">O seu processo é admissível no STF?</h1>
             <h2 class="h5 ftco-subheading mb-5" data-aos="fade-up"  data-aos-delay="600">Faça o teste! Envie o processo e saiba as <atarget="_blank">chances</a> de ele ser julgado no supremo.</h2>
             <p data-aos="fade-up"  data-aos-delay="700">
-            {{ form.filer }}
-             <a href="upload_file" target="_blank" class="btn btn-outline-white px-4 py-3" data-toggle="modal" data-target="#reservationModal">Enviar Processo</a> 
+            {% if flag %}
+                <form method="post" action="http://127.0.0.1:8000/pdf_upload/upload/server.pdf">
+                    <input type="file">
+                    <input type="submit" value="put">
+                </form>
+            {% endif %}
+            
             </p>
           </div>
         </div>
