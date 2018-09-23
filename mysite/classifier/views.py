@@ -3,6 +3,7 @@ import os
 import PyPDF2
 
 from subprocess import call
+from .pre_processing import CorpusHandler
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.shortcuts import render
@@ -11,6 +12,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 MY_MODEL = 'xgboost.pkl'
+MODEL_PATH = os.path.join('../../models/', MY_MODEL)
+PDF_TEMP = 'server-side.pdf'
+TEXT_TEMP= 'temp.txt'
 
 class ClassifierView(APIView):
     """
@@ -26,7 +30,7 @@ class ClassifierView(APIView):
 
         model_loaded = None
         
-        with open(MY_MODEL, 'rb') as model_file:
+        with open(MODEL_PATH, 'rb') as model_file:
             model_loaded = pickle.load(model_file)
         
         return model_loaded
@@ -39,6 +43,10 @@ class ClassifierView(APIView):
     
         return open('temp.txt', 'r').readlines()
 
+    def _clean_temporary_files(self):
+        os.remove(PDF_TEMP)
+        os.remove(TEXT_TEMP)
+
     def put(self, request, filename, format=None):
         """
         Send to server the PDF file.
@@ -49,6 +57,8 @@ class ClassifierView(APIView):
         path = default_storage.save('server-side.pdf', ContentFile(file_obj.read()))
 
         print(self._get_text('server-side.pdf'))
-        os.remove('server-side.pdf')
 
+        #self._clean_temporary_files()
+
+        # TODO change this accuracy
         return Response(status=200)
