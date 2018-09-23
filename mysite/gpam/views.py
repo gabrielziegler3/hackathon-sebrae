@@ -6,7 +6,16 @@ from .forms import UploadFileForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+
+    return render(request, 'index.html', {'form': form})
+
 def about(request):
     return render(request, 'about.html')
 
@@ -20,4 +29,5 @@ def upload_file(request):
             return HttpResponseRedirect('/success/url/')
     else:
         form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
+
+    return render(request, 'upload.html', {'form': 'dsfkaljsd'})
