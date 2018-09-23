@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('gpam/', include('gpam.urls')),
+    path('pdf_upload/', include('classifier.urls')),
     path('admin/', admin.site.urls),
 ]
