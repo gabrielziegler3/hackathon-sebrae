@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+from .gpam_hackathon.views import PDFUploadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^pdf_upload/(?P<filename>[^/]+)$', PDFUploadView.as_view())    
 ]

@@ -104,3 +104,13 @@ venv.bak/
 .mypy_cache/
 
 data/
+
+# database
+*.sqlite3
+
+# temporary files
+*.swp
+*.pdf
+
+# help script
+*.sh
