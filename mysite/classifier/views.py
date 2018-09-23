@@ -13,7 +13,7 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-MY_MODEL = 'svm.pkl'
+MY_MODEL = 'logres.pkl'
 TFIDF = 'tfidf.pkl'
 MODEL_PATH = os.path.join('../../models/', MY_MODEL)
 TFIDF_PATH = os.path.join('../../models/', TFIDF)
