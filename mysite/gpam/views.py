@@ -14,7 +14,7 @@ def index(request):
     else:
         form = UploadFileForm()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'index.html', {'flag': 1})
 
 def about(request):
     return render(request, 'about.html')

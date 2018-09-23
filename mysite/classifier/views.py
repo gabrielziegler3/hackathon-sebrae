@@ -4,7 +4,7 @@ import PyPDF2
 
 from subprocess import call
 from .pre_processing import CorpusHandler, BatchProcessing
-from sklearn.feature_extraction import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -71,10 +71,13 @@ class ClassifierView(APIView):
 
         return processed_corpus
 
-    def put(self, request, filename, format=None):
+    def post(self, request, filename, format=None):
         """
         Send to server the PDF file.
         """
+
+        """
+        print("========This is debug: ", request.data['file'])  
         # Load model and tfidf
         tfidf = self._load_tfidf()
         model = self._load_model()
@@ -100,4 +103,6 @@ class ClassifierView(APIView):
         #self._clean_temporary_files()
 
         # TODO change this accuracy
+        """
+        print(request.data)
         return Response(status=200)
