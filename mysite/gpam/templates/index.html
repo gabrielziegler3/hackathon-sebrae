@@ -1,4 +1,4 @@
-
+{% block content %}
 {% load static %}{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -52,9 +52,12 @@
       <div class="container">
         <div class="row align-items-center justify-content-center ftco-vh-100">
           <div class="col-md-8 text-center">
-            <h1 class="ftco-heading mb-4" data-aos="fade-up" data-aos-delay="500">O seu caso é um caso de repercussão geral?</h1>
-            <h2 class="h5 ftco-subheading mb-5" data-aos="fade-up"  data-aos-delay="600">Submeta seu processo e <atarget="_blank">descubra</a> as suas chances.</h2>
-            <p data-aos="fade-up"  data-aos-delay="700"><a href="upload_file" target="_blank" class="btn btn-outline-white px-4 py-3" data-toggle="modal" data-target="#reservationModal">Submeter Processo</a></p>
+            <h1 class="ftco-heading mb-4" data-aos="fade-up" data-aos-delay="500">The Greatest Law Classification</h1>
+            <h2 class="h5 ftco-subheading mb-5" data-aos="fade-up"  data-aos-delay="600">This tool assists in the <atarget="_blank">decision</a> to submit or not to file a lawsuit in the supreme federal court.</h2>
+            <p data-aos="fade-up"  data-aos-delay="700">
+            {{ form.filer }}
+             <a href="upload_file" target="_blank" class="btn btn-outline-white px-4 py-3" data-toggle="modal" data-target="#reservationModal">Upload Process</a> 
+            </p>
           </div>
         </div>
       </div>
@@ -496,3 +499,4 @@
     
   </body>
 </html>
+{% endblock %}
