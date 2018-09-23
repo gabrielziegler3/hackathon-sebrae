@@ -58,8 +58,9 @@
 
             {% if flag %}
                 <form method="post" action="http://127.0.0.1:8000/pdf_upload/upload/server.pdf" enctype="multipart/form-data">
-                    <input type="file">
-                    <input type="submit" value="put">
+                    {% csrf_token %}
+                    <input type="file" name="myfile">
+                    <input type="submit" value="Send">
                 </form>
             {% endif %}
             

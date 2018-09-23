@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,11 +20,10 @@ TEXT_TEMP = 'temp.txt'
 MY_MODEL = 'models/logres.pkl'
 TFIDF = 'models/tfidf.pkl'
 
-MODEL_TEMP = TEXT_TEMP
+TEXT_TEMP = TEXT_TEMP
 MODEL_PATH = os.path.join(SITE_ROOT, MY_MODEL)
 TFIDF_PATH = os.path.join(SITE_ROOT, TFIDF)
 
-print(SITE_ROOT)
 class ClassifierView(APIView):
     """
     Return the classification of PDF file.
@@ -57,13 +57,14 @@ class ClassifierView(APIView):
         """
         Get all text from a PDF
         """
-        call('pdftotext server-side.pdf temp.txt', shell=True)
-
-        return open(MODEL_TEMP, 'r').readlines()
+        print(TEXT_TEMP) 
+        call('pdftotext server-side.pdf ' + TEXT_TEMP, shell=True)
+    
+        return ' '.join(open(TEXT_TEMP, 'r').readlines())
 
     def _clean_temporary_files(self):
         os.remove(PDF_TEMP)
-        os.remove(MODEL_TEMP)
+        os.remove(TEXT_TEMP)
 
     def pre_process_text(self, corpus):
         pipe = [str.lower, 'clean_email', 'clean_site', 'clean_document',
@@ -79,32 +80,41 @@ class ClassifierView(APIView):
         Send to server the PDF file.
         """
 
-        print("========This is debug: ", request.data['file'])  
-        # Load model and tfidf
-        tfidf = self._load_tfidf()
-        model = self._load_model()
+        if request.method == 'POST' and request.FILES['myfile']:
 
-        file_obj = request.data['file']
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            uploaded_file_url = fs.url(filename)
+            
 
-        path = default_storage.save('server-side.pdf', ContentFile(file_obj.read()))
+            # Load model and tfidf
+            tfidf = self._load_tfidf()
+            model = self._load_model()
 
-        # Read PDF text
-        pdf_text = self._get_text('server-side.pdf')
-        print(self._get_text('server-side.pdf'))
+            print("Content ", request.content_type)
+            print("media ", request.accepted_media_type)
 
-        # Process text data
-        processed_pdf = self.pre_process_text(pdf_text)
+            file_obj = request.data['file']
 
-        # Transform text to tfidf scores
-        tfidf_corpus = tfidf.transform(processed_pdf)
+            print(dir(request))
 
-        # Predict probability to a given text
-        prediction = model.predict_proba(tfidf_corpus)
-        print('O processo encaminhado tem {:.2f}% de chance de ser admitido para julgamento no STF'.format(prediction))
+            #path = default_storage.save('server-side.pdf', ContentFile(file_obj.read()))
 
-        #self._clean_temporary_files()
+            # Read PDF text
+            pdf_text = self._get_text(uploaded_file_url)
+            print(self._get_text(uploaded_file_url))
 
-        # TODO change this accuracy
-        print(request.data)
-    
-        return render(request, 'index.html', {'flag': 0})
+            # Process text data
+            processed_pdf = self.pre_process_text(pdf_text)
+
+            # Transform text to tfidf scores
+            tfidf_corpus = tfidf.transform(processed_pdf)
+
+            # Predict probability to a given text
+            prediction = model.predict_proba(tfidf_corpus)
+            print('O processo encaminhado tem {}% de chance de ser admitido para julgamento no STF'.format(prediction))
+
+            #self._clean_temporary_files()
+
+            return render(request, 'index.html', {'flag': 0})
